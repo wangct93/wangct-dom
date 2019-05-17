@@ -1,6 +1,8 @@
 
 import util,{stringUtil,arrayUtil} from 'wangct-util';
 
+const {isUndef} = util;
+
 export default function $(selector){
     return new DOMElement(selector);
 }
@@ -70,7 +72,7 @@ class DOMElement {
         this.getList().forEach(item => {
             const {eventCache = {}} = item;
             const funcList = eventCache[type] || [];
-            if(util.isFunction(func)){
+            if(util.isFunc(func)){
                 arrayUtil.remove(funcList,func);
                 item.removeEventListener(type, func);
             }else{
@@ -85,7 +87,7 @@ class DOMElement {
 
     attr(key, value) {
         const list = this.getList();
-        if(util.isUndefined(value)){
+        if(isUndef(value)){
             return list[0] && list[0].getAttribute(key);
         }
         list.forEach(item => {
@@ -101,7 +103,7 @@ class DOMElement {
 
     prop(key, value) {
         const list = this.getList();
-        if(util.isUndefined(value)){
+        if(isUndef(value)){
             return list[0] && list[0][key];
         }
         list.forEach(item => {
@@ -150,9 +152,9 @@ class DOMElement {
             Object.keys(key).forEach(item => {
                 this.css(item,key[item]);
             });
-        }else if(util.isUndefined(value)){
+        }else if(isUndef(value)){
             const list = this.getList();
-            return list[0] && etComputedStyle(list[0], false)[key]
+            return list[0] && getComputedStyle(list[0], false)[key]
         }else{
             this.getList().forEach(item => {
                 item.style[key] = value;
@@ -289,7 +291,7 @@ class DOMElement {
     }
 
     text(text){
-        if(util.isUndefined(text)){
+        if(isUndef(text)){
             const elem = this.getList()[0];
             return elem && elem.innerText;
         }else{
@@ -301,7 +303,7 @@ class DOMElement {
     }
 
     html(html){
-        if(util.isUndefined(html)){
+        if(isUndef(html)){
             const elem = this.getList()[0];
             return elem && elem.innerHTML;
         }else{
@@ -313,7 +315,7 @@ class DOMElement {
     }
 
     val(value){
-        if(util.isUndefined(value)){
+        if(isUndef(value)){
             const elem = this.getList()[0];
             return elem && elem.value;
         }else{

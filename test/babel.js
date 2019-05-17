@@ -2,7 +2,6 @@
  * Created by wangct on 2019/3/9.
  */
 
-const util = require('wangct-server-util');
 const Babel = require('wangct-babel');
 
 const t = new Date();
